@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import Main from './containers/Main/Main';
+import Acceptance from './containers/Acceptance/Acceptance';
+import Warehouse from './containers/Warehouse/Warehouse';
+import Shipment from './containers/Shipment/Shipment';
+import { PageHeader } from 'react-bootstrap';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+const App = () => {
+  return (
+    <div className="app-main-page">
+      <div className="page-header">
+        <PageHeader>Система Управления Складским Комплексом</PageHeader>
       </div>
-    );
-  }
+      <Switch>
+        <Route path='/acceptance/' component={Acceptance} />
+        <Route path='/warehouse/' component={Warehouse} />
+        <Route path='/shipment/' component={Shipment} />
+        <Route path='/' component={Main} />
+      </Switch>
+    </div>
+  )
 }
+
 
 export default App;

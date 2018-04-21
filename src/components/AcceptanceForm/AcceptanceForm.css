@@ -1,0 +1,8 @@
+.opened {
+    visibility: visible;
+}
+
+.closed {
+    visibility: hidden;
+    display: none;
+}
