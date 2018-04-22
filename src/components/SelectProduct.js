@@ -15,7 +15,7 @@ class SelectProduct extends Component {
 
             this.setState({
                 gs
-            })
+            });
         }
     }
 
@@ -23,15 +23,17 @@ class SelectProduct extends Component {
         return (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel>Наименование товара:</ControlLabel>
-                <FormControl componentClass="select" placeholder="select">
+                <FormControl componentClass="select" placeholder="select" onChange={this.props.onProductChange}>
                     {/* <option value="select">select</option>
                         <option value="other">...</option> */}
-                    {goods.map(productData =>
+                    {/* <select value={goods[0].id} onChange={this.props.onProductChange}> */}
+                    {/* {goods.map(productData =>
                         <option value={productData.id} key={productData.id}>{productData.name}</option>
-                    )}
-                    {this.state.gs.map(productData =>
+                    )} */}
+                    {this.state.gs !== null ? this.state.gs.map(productData =>
                         <option value={productData.id} key={productData.id}>{productData.name}</option>
-                    )}
+                    ) : null}
+                    {/* </select> */}
                 </FormControl>
             </FormGroup>
         );

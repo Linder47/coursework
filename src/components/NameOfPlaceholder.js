@@ -8,7 +8,7 @@ class NameOfPlaceholder extends Component {
         return (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel>Имя заполнителя:</ControlLabel>
-                <FormControl componentClass="select" placeholder="select">
+                <FormControl componentClass="select" placeholder="select" onChange={this.props.onNameChange}>
                     {/* <option value="select">select</option>
                         <option value="other">...</option> */}
                     {workers.map(workerData =>
