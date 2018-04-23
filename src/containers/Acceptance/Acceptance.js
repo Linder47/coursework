@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import './Main.css';
-import { Nav, NavItem, Navbar } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 import AcceptanceForm from '../../components/AcceptanceForm/AcceptanceForm';
 
 class Acceptance extends Component {

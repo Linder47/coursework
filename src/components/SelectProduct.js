@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import './Main.css';
-import { Radio, Checkbox, ControlLabel, FormControl, Static, Button, FormGroup, HelpBlock } from 'react-bootstrap';
+import {ControlLabel, FormControl, FormGroup} from 'react-bootstrap';
 import goods from '../data/goods';
 
 class SelectProduct extends Component {
