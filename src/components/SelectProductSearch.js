@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
 import { ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
 
-class SelectProduct extends Component {
+class SelectProductSearch extends Component {
     state = {
         gs: []
     }
 
     componentWillMount() {
         if (localStorage.getItem('localGoods')) {
-            const a = JSON.parse(localStorage.getItem('localGoods'));
-            const b = [];
-
-            if (this.props.oper === "shipment") {
-                for (let i = 0; i < a.length; i++) {
-                    if (a[i].count !== undefined) {
-                        console.log('пушим!');
-                        b.push(a[i]);
-                    }
-                }
-            } else {
-                b.push(...a);
-            }
+            const gs = JSON.parse(localStorage.getItem('localGoods'));
+            console.log(gs);
 
             this.setState({
-                gs: b
+                gs
             });
         }
     }
@@ -33,6 +22,7 @@ class SelectProduct extends Component {
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel>Наименование товара:</ControlLabel>
                 <FormControl componentClass="select" placeholder="select" onChange={this.props.onProductChange}>
+                <option value='-1' key='-1'>Все</option>
                     {this.state.gs !== null ? this.state.gs.map(productData =>
                         <option value={productData.id} key={productData.id}>{productData.name}</option>
                     ) : null}
@@ -42,4 +32,4 @@ class SelectProduct extends Component {
     }
 }
 
-export default SelectProduct;
+export default SelectProductSearch;

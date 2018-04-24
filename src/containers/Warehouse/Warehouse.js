@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 // import './Main.css';
 import { Nav, NavItem, Button } from 'react-bootstrap';
-import SelectProduct from '../../components/SelectProduct';
+import SelectProductSearch from '../../components/SelectProductSearch';
 import WarehouseTable from '../../components/WarehouseTable';
+import './Warehouse.css';
 
 class Warehouse extends Component {
     state = {
         gs: [],
         elemsToShow: [],
-        selectedProduct: ''
+        selectedProduct: '-1',
     }
 
     componentWillMount() {
@@ -23,7 +24,7 @@ class Warehouse extends Component {
         }
     }
 
-    handleSearchChange = (e) => { ///HERE
+    handleSearchChange = (e) => {
         this.setState({
             selectedProduct: e.target.value
         });
@@ -32,7 +33,7 @@ class Warehouse extends Component {
     handleMakeSearch = (e) => {
         e.preventDefault();
 
-        if (this.state.selectedProduct === '') {
+        if (this.state.selectedProduct === '-1') {
             this.setState({
                 elemsToShow: this.state.gs
             });
@@ -51,33 +52,31 @@ class Warehouse extends Component {
         return (
             <div>
                 <div className='nav_wrapper'>
-                    ПРИЕМОЧКА
-
-                    <Nav bsStyle="tabs" activeKey="1" onSelect={k => this.handleSelect(k)}>
-                        <NavItem eventKey="1" href="/coursework/acceptance" >
+                    <Nav className="nav-wrapper" bsStyle="tabs" activeKey="2" justified>
+                        <NavItem className="nav-item" eventKey="1" href="/coursework/acceptance">
                             Приемка
-        </NavItem>
-                        <NavItem eventKey="2" title="Item" href="/coursework/warehouse" disabled>
+                    </NavItem>
+                        <NavItem className="nav-item" eventKey="2" href="/coursework/warehouse" disabled>
                             Склад
-        </NavItem>
-                        <NavItem eventKey="3" href="/coursework/shipment">
+                    </NavItem>
+                        <NavItem className="nav-item" eventKey="3" href="/coursework/shipment">
                             Отгрузка
-        </NavItem>
+                    </NavItem>
                     </Nav>
                 </div>
+                <div className="warehouse-search-wrapper">
+                    <form onSubmit={(e) => { this.handleMakeSearch(e) }}>
+                        <SelectProductSearch
+                            onProductChange={this.handleSearchChange}
+                        />
 
-                <form onSubmit={(e) => { this.handleMakeSearch(e) }}>
-                    <SelectProduct
-                        onProductChange={this.handleSearchChange}
-                    />
-
-                    <Button type="submit">Поиск</Button>
-                </form>
-
+                        <Button type="submit">Поиск</Button>
+                    </form>
+                </div>
+                
                 <WarehouseTable
                     arr={this.state.elemsToShow}
                 />
-
             </div>
         );
     }

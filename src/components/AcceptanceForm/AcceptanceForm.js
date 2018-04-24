@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-// import './Main.css';
-import { Radio, Checkbox, ControlLabel, FormControl, Static, Button, FormGroup, HelpBlock } from 'react-bootstrap';
+import { ControlLabel, FormControl, Button, FormGroup, Form } from 'react-bootstrap';
 import workers from '../../data/workers';
-import goods from '../../data/goods';
 import './AcceptanceForm.css';
 import NameOfPlaceholder from '../NameOfPlaceholder';
 import SelectProduct from '../SelectProduct';
 import PopUpAddNewProduct from '../PopUpAddNewProduct/PopUpAddNewProduct';
-import FormGroupInput from '../FormGroupInput';
 import CreateTakenPlaces from '../CreateTakenPlaces';
 
 class AcceptanceForm extends Component {
@@ -26,11 +23,13 @@ class AcceptanceForm extends Component {
     }
 
     componentWillMount() {
-        const b = JSON.parse(localStorage.getItem('localGoods'));
-        if (b !== null) {
-            this.setState({
-                product: b[0].id,
-            });
+        if (localStorage.getItem('localGoods')) {
+            const b = JSON.parse(localStorage.getItem('localGoods'));
+            if (b !== null) {
+                this.setState({
+                    product: b[0].id,
+                });
+            }
         }
     }
 
@@ -53,67 +52,71 @@ class AcceptanceForm extends Component {
     }
 
     handleMakeAcceptance = (e) => {
-        // localStorage.clear();
         e.preventDefault();
-        let a = [];
-        const b = JSON.parse(localStorage.getItem('localGoods'));
-        const places = CreateTakenPlaces(this.state.count);
-        a = b;
+        if (localStorage.getItem('localGoods')) {
+            let a = [];
+            const b = JSON.parse(localStorage.getItem('localGoods'));
+            const places = CreateTakenPlaces(this.state.count);
+            a = b;
 
-        for (let i = 0; i < a.length; i++) {
-            if (a[i].id === Number(this.state.product)) {
-                if (a[i]['count']) {
-                    a[i]['count'] = Number(this.state.count) + Number(a[i]['count']);
-                } else {
-                    a[i]['count'] = Number(this.state.count);
-                }
-                if (a[i]['placeId']) {
-                    a[i]['placeId'].push(...places);
-                } else {
-                    a[i]['placeId'] = places;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i].id === Number(this.state.product)) {
+                    if (a[i]['count']) {
+                        a[i]['count'] = Number(this.state.count) + Number(a[i]['count']);
+                    } else {
+                        a[i]['count'] = Number(this.state.count);
+                    }
+                    if (a[i]['placeId']) {
+                        a[i]['placeId'].push(...places);
+                    } else {
+                        a[i]['placeId'] = places;
+                    }
                 }
             }
+
+            this.setState({
+                count: '',
+                product: '',
+            });
+
+            localStorage.setItem('localGoods', JSON.stringify(a));
+
+            alert('Товар успешно записан!');
         }
-
-        this.setState({
-            count: '',
-            product: '',
-        });
-
-        console.log(a);
-
-        localStorage.setItem('localGoods', JSON.stringify(a));
     }
 
 
     render() {
         return (
             <div>
-                <form onSubmit={(e) => { this.handleMakeAcceptance(e) }}>
-                    <NameOfPlaceholder
-                        onNameChange={this.handleNameChange}
-                    />
+                <Form onSubmit={(e) => { this.handleMakeAcceptance(e) }}>
 
-                    <p>Товар:</p>
-                    <div onClick={this.togglePopup.bind(this)}>Вписать новый</div>
-                    <SelectProduct
-                        onProductChange={this.handleProductChange}
-                    />
+                    <div className="btn-new-product" onClick={this.togglePopup.bind(this)}>Создать товар</div>
 
-                    <FormGroup >
+                    <div className="product-group">
+                        <NameOfPlaceholder
+                            onNameChange={this.handleNameChange}
+                        />
+                        <SelectProduct
+                            onProductChange={this.handleProductChange}
+                            oper='acceptance'
+                        />
+                    </div>
+
+                    <FormGroup validationState="warning">
                         <ControlLabel>Количество товара:</ControlLabel>
                         <FormControl
+                            required
                             type="number"
                             value={this.state.count}
-                            placeholder="от 1 до 100"
-                            // maxLength="3"
+                            placeholder="от 1 до 30"
                             onChange={(e) => { this.handleAddCountChange(e.target.value) }}
                         />
                     </FormGroup>
 
                     <Button type="submit">Провести</Button>
 
-                </form>
+                </Form>
 
                 {this.state.showPopup ?
                     <PopUpAddNewProduct

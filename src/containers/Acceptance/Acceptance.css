@@ -1,0 +1,12 @@
+.nav-wrapper {
+    flex-direction: row;
+    display: flex;
+    margin-top: 30px;
+}
+
+.nav-item {
+    width: 140px;
+    /* display: flex; */
+    height: 50px;
+    justify-content: center;
+}

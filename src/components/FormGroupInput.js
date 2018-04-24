@@ -6,7 +6,8 @@ const FormGroupInput = (props) => {
         <FormGroup >
             <ControlLabel>{props.operation}:</ControlLabel>
             <FormControl
-                type="number"
+                required
+                type={props.type}
                 value={props.val}
                 onChange={(e) => { props.onSomeChange(e.target.value) }}
             />

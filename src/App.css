@@ -22,6 +22,22 @@
   font-size: large;
 }
 
+.app-main-page {
+  background: rgb(249, 249, 255);
+  padding-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+  height: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.page-header {
+  font-family: Helvetica, sans-serif;
+  margin: auto;
+  text-align: center;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -6,7 +6,7 @@ class Main extends Component {
     render() {
         return (
             <div className='nav_wrapper'>
-                <Navbar>
+                {/* <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
                             <a href="#home">React-Bootstrap</a>
@@ -23,7 +23,7 @@ class Main extends Component {
                             Отгрузка
     </NavItem>
                     </Nav>
-                </Navbar>;
+                </Navbar>; */}
             </div>
         );
     }

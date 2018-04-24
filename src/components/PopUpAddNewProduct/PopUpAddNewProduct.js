@@ -1,25 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import './Main.css';
 import AddNeWProduct from '../AddNewProduct';
 import goods from '../../data/goods';
-import FormGroupInput from '../FormGroupInput';
+import './PopUpAddNewProduct.css';
 
 class PopUpAddNewProduct extends React.Component {
     state = {
         addText: '',
         addSupplier: '',
         cost: '',
-        width: '',
         height: '',
+        width: '',
         length: '',
-    }
-
-    componentWillMount() {
-        if (localStorage.getItem('localGoods')) {
-            const added = JSON.parse(localStorage.getItem('localGoods'));
-            console.log(added);
-
-        }
     }
 
     handleAddTextChange = (text) => {
@@ -40,15 +32,15 @@ class PopUpAddNewProduct extends React.Component {
         });
     }
 
-    handleAddWidthChange = (text) => {
-        this.setState({
-            width: text
-        });
-    }
-
     handleAddHeightChange = (text) => {
         this.setState({
             height: text
+        });
+    }
+
+    handleAddWidthChange = (text) => {
+        this.setState({
+            width: text
         });
     }
 
@@ -60,41 +52,38 @@ class PopUpAddNewProduct extends React.Component {
 
     handleAddNewProduct = (e) => {
         e.preventDefault();
-        if (this.state.addText !== '') { //Если не намутил красные инпуты, то фигач проверку, короче!!!!!!!1
-            let a = [];
-            const b = JSON.parse(localStorage.getItem('localGoods'));
+        if (this.state.addText !== '') { 
+            if (localStorage.getItem('localGoods')) {
+                let a = [];
+                const b = JSON.parse(localStorage.getItem('localGoods'));
 
-            let id;
-            if (b === null) {
-                id = Number(goods[goods.length - 1].id) + 1;
-            } else {
-                console.log(b);
-                a = b;
-                id = Number(a[a.length - 1].id) + 1;
+                let id;
+                if (b === null) {
+                    id = Number(goods[goods.length - 1].id) + 1;
+                } else {
+                    a = b;
+                    id = Number(a[a.length - 1].id) + 1;
+                }
+
+                const data = {
+                    'id': id, 'name': this.state.addText, 'supplier': this.state.addSupplier, 'width': this.state.width,
+                    'height': this.state.height, 'length': this.state.length, 'cost': this.state.cost
+                };
+                a.push(data);
+                localStorage.setItem('localGoods', JSON.stringify(a));
+
+                this.setState({
+                    addText: '',
+                    addSupplier: '',
+                    width: '',
+                    length: '',
+                    cost: '',
+                    height: '',
+                });
+
+                alert('Товар добавлен в список!');
             }
 
-            const data = {
-                'id': id, 'name': this.state.addText, 'supplier': this.state.addSupplier, 'width': this.state.width,
-                'height': this.state.height, 'length': this.state.length, 'cost': this.state.cost
-            };
-            // const data = {
-            //     'id': nID, 'name': nOP, 'count': this.state.count, 'width': this.state.width,
-            //     'height': this.state.height, 'length': this.state.length, 'cost': this.state.cost
-            // };
-            console.log(data);
-            console.log('а чо не работаем');
-            a.push(data);
-            console.log(a);
-            localStorage.setItem('localGoods', JSON.stringify(a));
-
-            this.setState({
-                addText: '',
-                addSupplier: '',
-                cost: '',
-                width: '',
-                height: '',
-                length: '',
-            });
         }
     }
 
@@ -103,9 +92,8 @@ class PopUpAddNewProduct extends React.Component {
         return (
             <div className='popup'>
                 <div className='popup_inner'>
-                    <h1>{this.props.text}</h1>
-                    <button onClick={this.props.closePopup}>close me</button>
-                    {/* <p>hehe {this.state.added}</p> */}
+                    <h1 className="popup-header">{this.props.text}</h1>
+                    <button className="main-nav__toggle" onClick={this.props.closePopup}>close me</button>
 
                     <AddNeWProduct
                         onAddNewProduct={this.handleAddNewProduct}
@@ -114,9 +102,9 @@ class PopUpAddNewProduct extends React.Component {
                         onAddTextChange={this.handleAddTextChange}
                         onAddSupplierChange={this.handleAddSupplierChange}
                         cost={this.state.cost}
+                        height={this.state.height}
                         width={this.state.width}
                         length={this.state.length}
-                        height={this.state.height}
                         onAddCostChange={this.handleAddCostChange}
                         onAddWidthChange={this.handleAddWidthChange}
                         onAddHeightChange={this.handleAddHeightChange}

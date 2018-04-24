@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-// import './Main.css';
-import { ControlLabel, FormControl, FormGroup, Table } from 'react-bootstrap';
+import React from 'react';
+import { Table } from 'react-bootstrap';
 import WarehouseTableTrCreator from './WarehouseTableTrCreator';
 
 const WarehouseTable = (props) => {
-    console.log(props.arr);
+    let i = 1;
     return (
         <Table>
             <thead>
@@ -21,9 +20,9 @@ const WarehouseTable = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {console.log(props.arr)};
-                {props.arr.map(obj =>
-                    <WarehouseTableTrCreator
+                {props.arr.map(obj => {
+                    return <WarehouseTableTrCreator
+                        num={i++}
                         name={obj.name}
                         count={obj.count}
                         width={obj.width}
@@ -33,9 +32,9 @@ const WarehouseTable = (props) => {
                         supplier={obj.supplier}
                         placeId={obj.placeId}
                         key={obj.id}
-                    />
-
-                )}
+                    />;
+                    i += 1;
+                })}
 
             </tbody>
         </Table>

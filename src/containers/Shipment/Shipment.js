@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
-// import './Main.css';
-import { Nav, NavItem, Button } from 'react-bootstrap';
-import SelectProduct from '../../components/SelectProduct';
-// import WarehouseTable from '../../components/WarehouseTable';
+import { Nav, NavItem } from 'react-bootstrap';
+import ShipmentForm from '../../components/ShipmentForm/ShipmentForm';
+import './Shipment.css';
 
 class Shipment extends Component {
-
-    
     render() {
         return (
             <div>
                 <div className='nav_wrapper'>
-                    ПРИЕМОЧКА
-
-                    <Nav bsStyle="tabs" activeKey="1" onSelect={k => this.handleSelect(k)}>
-                        <NavItem eventKey="1" href="/coursework/acceptance" >
+                    <Nav className="nav-wrapper" bsStyle="tabs" activeKey="3" justified>
+                        <NavItem className="nav-item" eventKey="1" href="/coursework/acceptance">
                             Приемка
-        </NavItem>
-                        <NavItem eventKey="2" title="Item" href="/coursework/warehouse" disabled>
+                    </NavItem>
+                        <NavItem className="nav-item" eventKey="2" href="/coursework/warehouse">
                             Склад
-        </NavItem>
-                        <NavItem eventKey="3" href="/coursework/shipment">
+                    </NavItem>
+                        <NavItem className="nav-item" eventKey="3" href="/coursework/shipment" disabled>
                             Отгрузка
-        </NavItem>
+                    </NavItem>
                     </Nav>
                 </div>
-
-
+                <div className="shipment-form-wrapper">
+                    <ShipmentForm />
+                </div>
             </div>
         );
     }

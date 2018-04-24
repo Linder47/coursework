@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import takenPlaces from '../data/takenPlaces';
 
 const genRandom = (min, max) => {

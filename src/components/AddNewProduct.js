@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
-// import './Main.css';
-import { Radio, Checkbox, ControlLabel, FormControl, Static, Button, FormGroup, HelpBlock } from 'react-bootstrap';
-import goods from '../data/goods';
+import React from 'react';
+import { ControlLabel, FormControl, Button, FormGroup } from 'react-bootstrap';
 import FormGroupInput from './FormGroupInput';
 
 const AddNewProduct = (props) => {
     return (
         <form onSubmit={(e) => { props.onAddNewProduct(e) }}>
-            {/* <form onSubmit={(e) => { this.handleAddNewProduct(e.target.value) }} > */}
             <FormGroup
                 controlId="formBasicText"
             >
                 <ControlLabel>Название товара:</ControlLabel>
                 <FormControl
+                    required
                     type="text"
                     value={props.nameOfProduct}
                     placeholder="введите название продукта"
@@ -25,6 +23,7 @@ const AddNewProduct = (props) => {
             >
                 <ControlLabel>Поставщик:</ControlLabel>
                 <FormControl
+                    required
                     type="text"
                     value={props.nameOfSupplier}
                     placeholder="введите поставщика"
@@ -32,35 +31,36 @@ const AddNewProduct = (props) => {
                 />
             </FormGroup>
 
-
             <FormGroupInput
+                type='number'
                 operation='Цена за шт'
                 val={props.cost}
                 onSomeChange={props.onAddCostChange}
             />
 
             <FormGroupInput
+                type='number'
                 operation='Высота'
                 val={props.height}
                 onSomeChange={props.onAddHeightChange}
             />
 
             <FormGroupInput
+                type='number'
                 operation='Ширина'
-                value={props.width}
+                val={props.width}
                 onSomeChange={props.onAddWidthChange}
             />
 
             <FormGroupInput
+                type='number'
                 operation='Длина'
-                value={props.length}
+                val={props.length}
                 onSomeChange={props.onAddLengthChange}
             />
 
-
             <Button type="submit">Добавить</Button>
         </form>
-
     );
 }
 
